@@ -59,6 +59,7 @@ import paige.navic.ui.components.common.CoilBitmapLoader
 import paige.navic.utils.effectiveGain
 import java.io.File
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 class PlaybackService : MediaSessionService(), KoinComponent {
 	private var mediaSession: MediaSession? = null
@@ -402,7 +403,7 @@ class AndroidMediaPlayerViewModel(
 			player.repeatMode = state.repeatMode
 			player.playbackParameters = PlaybackParameters(state.playbackSpeed)
 
-			val index = if (state.currentIndex in 0 until mediaItems.size) state.currentIndex else 0
+			val index = if (state.currentIndex in mediaItems.indices) state.currentIndex else 0
 
 			val songDurationMs = state.queue.getOrNull(index)?.duration?.inWholeMilliseconds ?: 0L
 
@@ -425,7 +426,7 @@ class AndroidMediaPlayerViewModel(
 				val progress =
 					(player.currentPosition.toFloat() / duration.toFloat()).coerceIn(0f, 1f)
 				_uiState.update { it.copy(progress = progress) }
-				delay(200)
+				delay(200.milliseconds)
 			}
 		}
 	}
@@ -449,8 +450,8 @@ class AndroidMediaPlayerViewModel(
 				if (audioGroup.isTrackSelected(i)) {
 					val format = audioGroup.getTrackFormat(i)
 					Logger.i("MediaPlayer", "Active Track Format: $format")
-					_uiState.update {
-						it.copy(
+					_uiState.update { state ->
+						state.copy(
 							playbackBitrate = format.bitrate.takeIf { it > 0 },
 							playbackSampleRate = format.sampleRate.takeIf { it > 0 },
 							playbackMimeType = format.sampleMimeType
@@ -573,7 +574,7 @@ class AndroidMediaPlayerViewModel(
 					if (state.queue.isEmpty())
 						state.queue + song
 					else
-						state.queue.slice(0..state.currentIndex) + song + state.queue.slice(state.currentIndex+1..state.queue.size-1)
+						state.queue.slice(0..state.currentIndex) + song + state.queue.slice(state.currentIndex+1..<state.queue.size)
 				state.copy(
 					queue = newQueue,
 					currentIndex = if (state.currentIndex == -1) 0 else state.currentIndex,
@@ -596,7 +597,9 @@ class AndroidMediaPlayerViewModel(
 					if (state.queue.isEmpty()) 
 						state.queue + newCollection
 					else
-						state.queue.slice(0..state.currentIndex) + newCollection + state.queue.slice(state.currentIndex+1..state.queue.size-1)
+						state.queue.slice(0..state.currentIndex) + newCollection + state.queue.slice(
+							state.currentIndex+1..<state.queue.size
+						)
 				state.copy(
 					queue = newQueue,
 					currentIndex = if (state.currentIndex == -1) 0 else state.currentIndex,

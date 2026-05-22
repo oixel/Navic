@@ -97,11 +97,10 @@ fun NowPlayingMoreButton(
 
 	if (playlistDialogShown && song != null) {
 		NavicTheme {
-			@Suppress("AssignedValueIsNeverRead")
-			PlaylistUpdateDialog(
-				songs = persistentListOf(song),
-				onDismissRequest = { playlistDialogShown = false }
-			)
+            PlaylistUpdateDialog(
+                songs = persistentListOf(song),
+                onDismissRequest = { playlistDialogShown = false }
+            )
 		}
 	}
 

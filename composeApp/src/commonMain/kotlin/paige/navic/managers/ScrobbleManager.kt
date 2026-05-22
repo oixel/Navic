@@ -12,6 +12,7 @@ import paige.navic.data.database.entities.SyncActionType
 import paige.navic.data.models.settings.Settings
 import paige.navic.data.session.SessionManager
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.seconds
 
 interface ScrobblePlayerSource {
 	val currentPosition: Long
@@ -62,7 +63,7 @@ class ScrobbleManager(
 				accumulatedPlayTime += timePassed
 
 				checkProgress()
-				delay(2000)
+				delay(2.seconds)
 			}
 		}
 	}

@@ -201,7 +201,6 @@ fun PlaylistUpdateDialog(
 	)
 
 	if (createDialogShown) {
-		@Suppress("AssignedValueIsNeverRead")
 		PlaylistCreateDialog(
 			navigateAfterwards = false,
 			onDismissRequest = { createDialogShown = false },

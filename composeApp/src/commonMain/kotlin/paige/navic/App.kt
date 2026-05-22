@@ -259,10 +259,7 @@ private fun entryProvider(
 			LoginScreen()
 		}
 		entry<Screen.NowPlaying>(
-			metadata = NowPlayingSceneStrategy.bottomSheet(
-				maxWidth = Dp.Unspecified,
-				screenType = "player"
-			)
+			metadata = NowPlayingSceneStrategy.bottomSheet(maxWidth = Dp.Unspecified)
 		) {
 			NowPlayingScreen()
 		}

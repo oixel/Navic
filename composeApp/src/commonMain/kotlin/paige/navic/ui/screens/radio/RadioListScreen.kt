@@ -156,7 +156,6 @@ fun RadioListScreen(
 	)
 
 	if (createDialogShown) {
-		@Suppress("AssignedValueIsNeverRead")
 		RadioCreateDialog(
 			onDismissRequest = { createDialogShown = false },
 			onRefresh = { viewModel.refreshRadios(true) }

@@ -84,14 +84,14 @@ fun StarredScreenContent(
 	selectedSong: DomainSong?,
 	selectedSongIsStarred: Boolean,
 	selectedSongRating: Int,
-	allDownloads: List<DownloadEntity>,
+	allDownloads: ImmutableList<DownloadEntity>,
 	onSelectSong: (DomainSong) -> Unit,
 	onClearSongSelection: () -> Unit,
 	onAddSongStar: () -> Unit,
 	onRemoveSongStar: () -> Unit,
 	onPlaySongNext: (DomainSong) -> Unit,
 	onAddSongToQueue: (DomainSong) -> Unit,
-	onPlaySong: (DomainSong, Int) -> Unit,
+	onPlaySong: (Int) -> Unit,
 	onSetSongRating: (Int) -> Unit,
 	onDownloadSong: (DomainSong) -> Unit,
 	onCancelDownloadSong: (DomainSong) -> Unit,
@@ -112,7 +112,7 @@ fun StarredScreenContent(
 	// artists
 	artistsState: UiState<ImmutableList<DomainArtist>>,
 	selectedArtist: DomainArtist?,
-	selectedArtistAlbums: List<DomainAlbum>?,
+	selectedArtistAlbums: ImmutableList<DomainAlbum>?,
 	selectedArtistIsStarred: Boolean,
 	onSelectArtist: (DomainArtist) -> Unit,
 	onClearArtistSelection: () -> Unit,
@@ -224,7 +224,7 @@ fun StarredScreenContent(
 							modifier = Modifier.weight(1f),
 							song = song,
 							selected = selectedSong == song,
-							onClick = { onPlaySong(song, index) },
+							onClick = { onPlaySong(index) },
 							onLongClick = { onSelectSong(song) },
 							onDismissRequest = { onClearSongSelection() },
 							starredState = selectedSongIsStarred,
@@ -347,7 +347,6 @@ fun StarredScreenContent(
 	}
 
 	songsToAddToPlaylist?.let {
-		@Suppress("AssignedValueIsNeverRead")
 		PlaylistUpdateDialog(
 			songs = it,
 			onDismissRequest = { songsToAddToPlaylist = null }

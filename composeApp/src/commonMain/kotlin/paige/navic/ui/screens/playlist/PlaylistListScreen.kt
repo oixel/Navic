@@ -200,7 +200,6 @@ fun PlaylistListScreen(
 		onClearError = { viewModel.clearError() }
 	)
 
-	@Suppress("AssignedValueIsNeverRead")
 	ShareDialog(
 		id = shareId,
 		onIdClear = { shareId = null },
@@ -208,7 +207,6 @@ fun PlaylistListScreen(
 		onExpiryChange = { shareExpiry = it }
 	)
 
-	@Suppress("AssignedValueIsNeverRead")
 	DeletionDialog(
 		endpoint = DeletionEndpoint.PLAYLIST,
 		id = deletionId,
@@ -217,7 +215,6 @@ fun PlaylistListScreen(
 	)
 
 	if (createDialogShown) {
-		@Suppress("AssignedValueIsNeverRead")
 		PlaylistCreateDialog(
 			onDismissRequest = { createDialogShown = false },
 			onRefresh = { viewModel.refreshPlaylists(true) }

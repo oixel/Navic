@@ -29,6 +29,7 @@ import paige.navic.LocalCtx
 import paige.navic.icons.Icons
 import paige.navic.icons.outlined.Check
 import paige.navic.icons.outlined.Copy
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun ErrorCodeBlock(error: Throwable) {
@@ -40,7 +41,7 @@ fun ErrorCodeBlock(error: Throwable) {
 
 	LaunchedEffect(copied) {
 		if (copied) {
-			delay(2000)
+			delay(2.seconds)
 			copied = false
 		}
 	}

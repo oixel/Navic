@@ -32,7 +32,7 @@ class SongListViewModel(
 		.stateIn(
 			scope = viewModelScope,
 			started = SharingStarted.Lazily,
-			initialValue = emptyList()
+			initialValue = persistentListOf()
 		)
 
 	private val _selectedSong = MutableStateFlow<DomainSong?>(null)

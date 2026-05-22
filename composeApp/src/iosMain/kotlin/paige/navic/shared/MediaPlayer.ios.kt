@@ -205,7 +205,7 @@ class IOSMediaPlayerViewModel(
 				if (state.queue.isEmpty())
 					state.queue + song
 				else
-					state.queue.slice(0..state.currentIndex) + song + state.queue.slice(state.currentIndex+1..state.queue.size-1)
+					state.queue.slice(0..state.currentIndex) + song + state.queue.slice(state.currentIndex+1..<state.queue.size)
 			state.copy(
 				queue = newQueue,
 				currentIndex = if (state.currentIndex == -1) 0 else state.currentIndex,
@@ -224,7 +224,9 @@ class IOSMediaPlayerViewModel(
 				if (state.queue.isEmpty())
 					state.queue + newCollection
 				else
-					state.queue.slice(0..state.currentIndex) + newCollection + state.queue.slice(state.currentIndex+1..state.queue.size-1)
+					state.queue.slice(0..state.currentIndex) + newCollection + state.queue.slice(
+						state.currentIndex+1..<state.queue.size
+					)
 			state.copy(
 				queue = newQueue,
 				currentIndex = if (state.currentIndex == -1) 0 else state.currentIndex,
@@ -525,7 +527,7 @@ class IOSMediaPlayerViewModel(
 	override fun syncPlayerWithState(state: PlayerUiState) {
 		if (state.queue.isEmpty() || player.currentItem != null) return
 
-		val index = if (state.currentIndex in 0 until state.queue.size) state.currentIndex else 0
+		val index = if (state.currentIndex in state.queue.indices) state.currentIndex else 0
 		val song = state.queue.getOrNull(index) ?: return
 
 		val url = getSongUrl(song) ?: return

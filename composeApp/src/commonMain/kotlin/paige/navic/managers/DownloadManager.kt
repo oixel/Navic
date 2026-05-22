@@ -11,6 +11,7 @@ import io.ktor.client.request.header
 import io.ktor.client.request.prepareRequest
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.http.HttpMethod
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,7 +66,7 @@ class DownloadManager(
 	private val downloadSemaphore =
 		Semaphore(10)// idk a good number, maybe u should be able to choose
 
-	val allDownloads = downloadDao.getAllDownloads()
+	val allDownloads = downloadDao.getAllDownloads().map { it.toImmutableList() }
 	val downloadCount = downloadDao.getDownloadsCount()
 	val downloadSize = allDownloads.map { downloads ->
 		downloads
