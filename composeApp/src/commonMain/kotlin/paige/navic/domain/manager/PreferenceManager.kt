@@ -30,6 +30,7 @@ class PreferenceManager(
 	var fontPath by preference("")
 	var animationStyle by preference(AnimationStyle.Expressive)
 	var nowPlayingBackgroundStyle by preference(NowPlayingBackgroundStyle.Dynamic)
+	var dynamicCollectionBackground by preference(false)
 	var swipeToSkip by preference(true)
 	var gridSize by preference(GridSize.TwoByTwo)
 	var coverArtShape by preference(CoverArtShape.Soft)

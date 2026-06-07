@@ -45,6 +45,7 @@ import navic.composeapp.generated.resources.option_animation_style
 import navic.composeapp.generated.resources.option_artwork_shape
 import navic.composeapp.generated.resources.option_choose_theme
 import navic.composeapp.generated.resources.option_cover_art_size
+import navic.composeapp.generated.resources.option_dynamic_collection_background
 import navic.composeapp.generated.resources.option_grid_items_per_row
 import navic.composeapp.generated.resources.option_use_marquee_text
 import navic.composeapp.generated.resources.title_appearance
@@ -277,6 +278,12 @@ fun SettingsAppearanceScreen() {
 						title = { Text(stringResource(Res.string.option_alphabetical_scroll)) },
 						value = preferenceManager.alphabeticalScroll,
 						onSetValue = { preferenceManager.alphabeticalScroll = it }
+					)
+
+					SettingSwitchRow(
+						title = { Text(stringResource(Res.string.option_dynamic_collection_background))},
+						value = preferenceManager.dynamicCollectionBackground,
+						onSetValue = { preferenceManager.dynamicCollectionBackground = it }
 					)
 
 					SettingSelectionRow(
